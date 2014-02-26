@@ -1,0 +1,3 @@
+ga:
+  app_key: <%= ENV['GOOGLE_APP_KEY'] %>
+  app_secret: <%= ENV['GOOGLE_APP_SECRET'] %>
