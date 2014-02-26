@@ -1,6 +1,11 @@
 ZapierPoc::Application.routes.draw do
   
+  get "home/index"
+
   root to: "home#index"
+
+  match 'delete_google' => 'home#disconnect_google', as: 'disconnect_google'
+  match 'delete_salesforce' => 'home#disconnect_salesforce', as: 'disconnect_salesforce'
 
   devise_for :users, :controllers => {
     omniauth_callbacks: "users/omniauth_callbacks"

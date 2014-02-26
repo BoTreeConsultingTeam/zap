@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %title ZapierPoc
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    %header.navbar.navbar-inverse
+      %nav.navbar-inner
+        .container-fluid 
+          %a.brand Zap
+          %ul.nav
+            %li
+              = link_to "Home", root_url
+          - if current_user
+            = link_to "Sign Out",destroy_user_session_path, method: :delete, class: "pull-right btn btn-danger"
+          - else
+            = link_to "Sign In",new_user_session_path, class: "pull-right btn btn-primary"
+    = yield

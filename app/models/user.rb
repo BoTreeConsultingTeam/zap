@@ -42,4 +42,24 @@ class User < ActiveRecord::Base
     @screen_name = auth['info']['name']
   end
 
+  def google_auth
+    auths = authentications.where("provider = 'google_oauth2'")
+    return nil unless auths.present?
+    auths.first 
+  end
+
+  def salesforce_auth
+    auths = authentications.where("provider = 'salesforce'")
+    return nil unless auths.present?
+    auths.first 
+  end
+
+  def remove_google
+    self.google_auth.destroy
+  end
+
+  def remove_salesforce
+    self.salesforce_auth.destroy
+  end
+
 end
