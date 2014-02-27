@@ -14,7 +14,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     screen_name = auth.info.name
     session[:signed_in_with] = auth.provider
     process_callback
-    session[:provider_connected] = 'salesforce_oauth2'
+    session[:provider_connected] = 'salesforce'
     add_screen_name
   end
 
