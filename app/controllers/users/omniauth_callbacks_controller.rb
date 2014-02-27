@@ -9,12 +9,25 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     add_screen_name
   end
 
+  def salesforce
+    auth = request.env["omniauth.auth"]
+    screen_name = auth.info.name
+    session[:signed_in_with] = auth.provider
+    process_callback
+    session[:provider_connected] = 'salesforce_oauth2'
+    add_screen_name
+  end
+
   private
 
   def process_callback
     if(!user_signed_in?)
       auth =  request.env["omniauth.auth"]
-      email = auth.extra.raw_info.email
+      if auth['provider'] == 'salesforce'
+        email = auth.extra.email
+      else
+        email = auth.extra.raw_info.email 
+      end
       user = User.find_by_email(email)
       sign_in :user, user if user.present?
     end

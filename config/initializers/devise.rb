@@ -253,4 +253,6 @@ Devise.setup do |config|
       :scope => "userinfo.email, userinfo.profile, calendar, calendar.readonly"
   }
 
+  config.omniauth :salesforce, Settings.sf.app_key,Settings.sf.app_secret
+
 end

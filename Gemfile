@@ -52,3 +52,6 @@ gem 'google-api-client'
 
 gem 'devise', '3.0.0'
 gem 'omniauth'
+
+gem 'omniauth-salesforce'
+gem 'restforce'

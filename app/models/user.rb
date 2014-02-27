@@ -13,7 +13,12 @@ class User < ActiveRecord::Base
   has_many :authentications
 
   def apply_omniauth(auth)
-    self.email = auth['extra']['raw_info']['email'] if auth['extra']['raw_info']['email']
+    if auth['provider'] == 'salesforce'
+      self.email = auth['extra']['email'] if auth['extra']['email']
+    else
+      self.email = auth['extra']['raw_info']['email'] if auth['extra']['raw_info']['email']
+    end
+    
     self.password = Devise.friendly_token[0,20]
     register_omniauth(auth)
   end

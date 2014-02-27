@@ -1,3 +1,6 @@
 ga:
   app_key: <%= ENV['GOOGLE_APP_KEY'] %>
   app_secret: <%= ENV['GOOGLE_APP_SECRET'] %>
+sf:
+  app_key: <%= ENV['SALESFORCE_KEY'] %>
+  app_secret: <%= ENV['SALESFORCE_SECRET'] %>
