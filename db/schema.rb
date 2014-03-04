@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140225180211) do
+ActiveRecord::Schema.define(:version => 20140304172601) do
 
   create_table "authentications", :force => true do |t|
     t.string   "provider"
@@ -21,8 +21,9 @@ ActiveRecord::Schema.define(:version => 20140225180211) do
     t.string   "secret"
     t.string   "string"
     t.string   "screen_name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "instance_url"
   end
 
   create_table "users", :force => true do |t|

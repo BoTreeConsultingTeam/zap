@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   def create_event
     sf_auth = current_user.salesforce_auth
     sfUtil = Utilities::Salesforce::SalesforceApiUtil.new
-    @events = sfUtil.get_events({:token =>  sf_auth.token, :instance_url => session[:salesforce_instance_url], refresh_token: sf_auth.secret})
+    @events = sfUtil.get_events({:token =>  sf_auth.token, :instance_url => sf_auth.instance_url, refresh_token: sf_auth.secret})
     @events.each do |event|
       params = {
         'summary' => event["Subject"],

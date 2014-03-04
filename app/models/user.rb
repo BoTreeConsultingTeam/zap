@@ -26,13 +26,13 @@ class User < ActiveRecord::Base
   def register_omniauth(auth)
     get_screen_name(auth)
     provider = auth['provider']
-    #secret = auth['credentials']['secret']
     secret = auth['credentials']['refresh_token'] if(provider.to_s.include?("google_") || provider.to_s.include?("salesforce"))
     attributes = {:provider => provider, :uid=>auth['uid'], 
         :token=>auth['credentials']['token'], :screen_name => @screen_name}
     if secret.present? && secret != ''
       attributes[:secret] = secret
     end
+    attributes[:instance_url] = auth.credentials.instance_url if provider.to_s.include?("salesforce")
     
     db_auth = self.authentications.find_by_provider(provider.to_sym)
     
