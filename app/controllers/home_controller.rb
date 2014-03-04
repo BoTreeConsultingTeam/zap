@@ -38,7 +38,7 @@ class HomeController < ApplicationController
       google_auth = current_user.google_auth
       googleUtil = Utilities::Google::GoogleCalendarUtil.new({access_token: google_auth.token,
         refresh_token: google_auth.secret})
-      googleUtil.create_event({'calendarId' => 'primary'}, JSON.dump(params), {'Content-Type' => 'application/json'})
+      googleUtil.create_event({'calendarId' => 'primary'}, params, {'Content-Type' => 'application/json'})
     end
     
   end
