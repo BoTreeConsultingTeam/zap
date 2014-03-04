@@ -6,14 +6,14 @@ module Utilities
       attr_accessor :client, :service, :service_api_options
 
       def initialize(options={})
-        @client = Databasedotcom::Client.new("config/databasedotcom.yml")
+        self.client = Databasedotcom::Client.new("config/databasedotcom.yml")
       end
 
-      #################################
-      protected
-      #################################
-      def execute_service_method(auth)
-        @client.authenticate auth        
+      def get_events(options = {})
+        self.client.authenticate({:token => options[:token], :instance_url => options[:instance_url],
+                            :refresh_token => options[:refresh_token]})
+        self.client.materialize("Event")
+        events = Event.all
       end
       
     end

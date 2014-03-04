@@ -3,6 +3,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
     auth = request.env["omniauth.auth"]
     screen_name = auth.info.name
+    session[:google_auth_token] = auth.credentials.token
+    session[:google_refresh_token] = auth.credentials.refresh_token
     session[:signed_in_with] = auth.provider
     process_callback
     session[:provider_connected] = 'google_oauth2'
@@ -15,6 +17,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     session[:signed_in_with] = auth.provider
     process_callback
     session[:provider_connected] = 'salesforce'
+    session[:salesforce_auth_token] = auth.credentials.token
+    session[:salesforce_instance_url] = auth.credentials.instance_url
+    session[:salesforce_refresh_token] = auth.credentials.refresh_token
     add_screen_name
   end
 
