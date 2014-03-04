@@ -1,17 +1,16 @@
-%table{:border => "1"}
-  %thead
-    %th= "Id"
-    %th= "Subject"
-    %th= "Description"
-    %th= "Start Time"
-    %th= "End Time"
-    %th= "Location"
-  %tbody
-    - @events.each do |event|
-      %tr
-        %td= event["Id"]
-        %td= event["Subject"]
-        %td= event["Description"]
-        %td= event["StartDateTime"]
-        %td= event["EndDateTime"]
-        %td= event["Location"]
+.container
+  .alert.alert-success
+    ="Following events have been created:"
+  %table.table.table-striped
+    %thead
+      %td= "Subject"
+      %td= "Start Time"
+      %td= "End Time"
+      %td= "Location"
+    %tbody
+      - @events.each do |event|
+        %tr
+          %td= event["Subject"]
+          %td= event["StartDateTime"].strftime("%m/%d/%Y %I:%M%p")
+          %td= event["EndDateTime"].strftime("%m/%d/%Y %I:%M%p")
+          %td= event["Location"]

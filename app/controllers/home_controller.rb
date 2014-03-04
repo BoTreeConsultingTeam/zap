@@ -12,14 +12,6 @@ class HomeController < ApplicationController
     redirect_to root_url and return
   end
 
-  def show_event
-    sf_auth = current_user.salesforce_auth
-    sfUtil = Utilities::Salesforce::SalesforceApiUtil.new
-    @events = sfUtil.get_events({:token => sf_auth.token, 
-      :instance_url => session[:salesforce_instance_url],
-      :refresh_token => sf_auth.secret})
-  end
-
   def create_event
     sf_auth = current_user.salesforce_auth
     sfUtil = Utilities::Salesforce::SalesforceApiUtil.new
@@ -40,6 +32,6 @@ class HomeController < ApplicationController
         refresh_token: google_auth.secret})
       googleUtil.create_event({'calendarId' => 'primary'}, params, {'Content-Type' => 'application/json'})
     end
-    
+    render :show_event
   end
 end
