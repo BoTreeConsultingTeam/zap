@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     get_screen_name(auth)
     provider = auth['provider']
     #secret = auth['credentials']['secret']
-    secret = auth['credentials']['refresh_token'] if(provider.to_s.include? "google_")
+    secret = auth['credentials']['refresh_token'] if(provider.to_s.include?("google_") || provider.to_s.include?("salesforce"))
     attributes = {:provider => provider, :uid=>auth['uid'], 
         :token=>auth['credentials']['token'], :screen_name => @screen_name}
     if secret.present? && secret != ''

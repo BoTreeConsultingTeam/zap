@@ -13,15 +13,17 @@ class HomeController < ApplicationController
   end
 
   def show_event
+    sf_auth = current_user.salesforce_auth
     sfUtil = Utilities::Salesforce::SalesforceApiUtil.new
-    @events = sfUtil.get_events({:token => session[:salesforce_auth_token], 
+    @events = sfUtil.get_events({:token => sf_auth.token, 
       :instance_url => session[:salesforce_instance_url],
-      :refresh_token => session[:salesforce_refresh_token]})
+      :refresh_token => sf_auth.secret})
   end
 
   def create_event
+    sf_auth = current_user.salesforce_auth
     sfUtil = Utilities::Salesforce::SalesforceApiUtil.new
-    @events = sfUtil.get_events({:token => session[:auth_token], :instance_url => session[:instance_url]})
+    @events = sfUtil.get_events({:token =>  sf_auth.token, :instance_url => session[:salesforce_instance_url], refresh_token: sf_auth.secret})
     @events.each do |event|
       params = {
         'summary' => event["Subject"],
@@ -33,8 +35,9 @@ class HomeController < ApplicationController
           'dateTime' => event["EndDateTime"]
         }
       }
-      googleUtil = Utilities::Google::GoogleCalendarUtil.new({access_token: session[:google_auth_token],
-        refresh_token: session[:google_refresh_token]})
+      google_auth = current_user.google_auth
+      googleUtil = Utilities::Google::GoogleCalendarUtil.new({access_token: google_auth.token,
+        refresh_token: google_auth.secret})
       googleUtil.create_event({'calendarId' => 'primary'}, JSON.dump(params), {'Content-Type' => 'application/json'})
     end
     
