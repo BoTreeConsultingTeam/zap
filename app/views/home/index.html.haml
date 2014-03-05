@@ -16,7 +16,7 @@
         = link_to "Connect Sales Force", "/users/auth/salesforce", class: "btn btn-success btn-large"
 
       - if current_user.salesforce_auth.present? && current_user.google_auth.present?
-        = link_to "Create Events", create_event_path, class: "btn btn-warning btn-large"
+        = link_to "Copy Events", create_event_path, class: "btn btn-warning btn-large"
 
     - else
       %h1 Hello
