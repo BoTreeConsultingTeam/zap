@@ -1,6 +1,6 @@
 module Utilities
   module Salesforce
-    
+
     class SalesforceApiUtil < Utilities::CommonUtil
 
       attr_accessor :client, :service, :service_api_options
@@ -24,7 +24,7 @@ module Utilities
         client.authenticate({:token => options[:token], :instance_url => options[:instance_url],
                             :refresh_token => options[:refresh_token]})
       end
-      
+
     end
 
   end

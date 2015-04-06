@@ -2,7 +2,7 @@ require 'google/api_client'
 
 module Utilities
   module Google
-    
+
     class NoAccessTokenDefined < StandardError ; end
     class GoogleClientInitializationFailed < StandardError ; end
     class GoogleClientDiscoveryFailed < StandardError ; end
@@ -13,7 +13,7 @@ module Utilities
       SCOPES = {
         calendar: 'https://www.googleapis.com/auth/calendar'
       }
-      
+
       DEFAULT_OPTIONS = { :application_name => 'sample-app', :application_version => '1.0'}
 
       AUTH_OPTIONS = {
@@ -25,7 +25,7 @@ module Utilities
       }
       DEFAULT_AUTH_OPTIONS = AUTH_OPTIONS[:calendar]
 
-      DEFAULT_SERVICE_OPTIONS = SERVICE_OPTIONS[:calendar] 
+      DEFAULT_SERVICE_OPTIONS = SERVICE_OPTIONS[:calendar]
 
       attr_accessor :client, :service, :service_api_options
 
@@ -45,7 +45,7 @@ module Utilities
         access_token = options[:access_token]
         refresh_token = options[:refresh_token]
         auth_options = AUTH_OPTIONS[service_api_options[:service_name].to_sym] || DEFAULT_AUTH_OPTIONS
-        
+
         if !access_token.present? || !refresh_token.present?
           raise NoAccessTokenDefined, "Access/Refresh Token is not defined! Can not create google API client!"
         end
@@ -70,10 +70,10 @@ module Utilities
 
       def discover_google_service
         debug("ENTER ==> discover_google_service")
-        
+
         service_name = service_api_options[:service_name]
         service_api_version = service_api_options[:service_api_version]
-        
+
         begin
           @service = (service_api_version) ? client.discovered_api(service_name, service_api_version) : client.discovered_api(service_name)
           debug("EXIT ==> discover_google_service")
@@ -86,9 +86,9 @@ module Utilities
       def execute_service_method(method_name, params={}, body={},headers={})
         debug("ENTER ==> execute_service_method")
         begin
-          result = client.execute(:api_method => method_name, 
-                                  :parameters => params, 
-                                  :body_object => body, 
+          result = client.execute(:api_method => method_name,
+                                  :parameters => params,
+                                  :body_object => body,
                                   :headers => headers
                                  )
           response_data = JSON.parse(result.response.body)
@@ -100,7 +100,7 @@ module Utilities
           raise GoogleServiceExecutionFailed, "Google service execution for service '#{service_api_options[:service_name]}' has been failed for method '#{method_name}' : #{e.message}"
         end
       end
-      
+
     end
 
   end
